@@ -17,6 +17,7 @@ import {exec} from 'child_process';
 import hash from 'hash-sum';
 import cache from './cache';
 import resolve from './resolve';
+const EXEC_TIMEOUT = 2000;
 
 colors.enabled = true;
 
@@ -78,7 +79,7 @@ const utils = {
     },
     exec(cmd, quite) {
         return new Promise((resolve, reject) => {
-            let fcmd = exec(cmd, (err, stdout, stderr) => {
+            let fcmd = exec(cmd, {timeout: EXEC_TIMEOUT}, (err, stdout, stderr) => {
                 if (err) { reject(err); }
                 else { resolve(stdout, stderr); }
             });
