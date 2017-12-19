@@ -76,9 +76,9 @@ const utils = {
 
         });
     },
-    exec(cmd, quite) {
+    exec(cmd, quite, timeout) {
         return new Promise((resolve, reject) => {
-            let fcmd = exec(cmd, (err, stdout, stderr) => {
+            let fcmd = exec(cmd, {timeout: timeout || 0}, (err, stdout, stderr) => {
                 if (err) { reject(err); }
                 else { resolve(stdout, stderr); }
             });
