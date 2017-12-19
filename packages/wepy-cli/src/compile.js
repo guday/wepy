@@ -26,6 +26,7 @@ import toWeb from './web/index';
 
 let watchReady = false;
 let preventDup = {};
+const EXEC_TIMEOUT = 5000;
 
 
 export default {
@@ -183,7 +184,7 @@ export default {
         }
 
         if (!this.checkCompiler(wepyrc.compilers) || !this.checkPlugin(wepyrc.plugins)) {
-            util.exec(`npm info ${loader.missingNPM}`, true).then(d => {
+            util.exec(`npm info ${loader.missingNPM}`, true, EXEC_TIMEOUT).then(d => {
                 util.log('检测到有效NPM包资源，正在尝试安装，请稍等。', '信息');
                 util.exec(`npm install ${loader.missingNPM} --save-dev`).then(d => {
                     util.log(`已完成安装 ${loader.missingNPM}，重新启动编译。`, '完成');
